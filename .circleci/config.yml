@@ -5,22 +5,33 @@ jobs:
     steps:
       - checkout
       - run: npm i
+      - save_cache:
+          key: "npm-packages"
+          paths:
+          - src/node_mo
   test:
     docker:
       - image: circleci/node:13.8.0
     steps:
       - checkout
+      - restore_cache:
+          keys: 
+            - "npm-packages"
+      - run: npm i
       - run: npm run test
   analyze:
     docker:
       - image: circleci/node:13.8.0
     steps:
       - checkout
+      - restore_cache:
+          keys: 
+            - "npm-packages"
       - run: npm audit
     
 workflows:
   version: 2
-  build_and_test:
+  my_workflow:
     jobs:
       - build
       - test:
