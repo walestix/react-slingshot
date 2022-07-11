@@ -6,8 +6,8 @@ jobs:
       - checkout
       - run: npm i
       - save_cache:
-          key: "npm-packages"
-          paths:
+        keys: "npm-packages"
+        paths:
           - src/node_mo
   test:
     docker:
@@ -40,4 +40,3 @@ workflows:
       - analyze:
           requires:
             - test
-    
